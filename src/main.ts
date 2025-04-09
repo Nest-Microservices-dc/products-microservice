@@ -5,7 +5,6 @@ import { envs } from './config';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
-
   const logger = new Logger('ProductMS-main');
 
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
@@ -22,10 +21,11 @@ async function bootstrap() {
     new ValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true,
-    }),
-  ),
+    })
+  );
 
-    await app.listen();
-  logger.log(`Products MicroService is running on port: ${envs.port}`);
+  await app.listen();
+  logger.log(`✅ Products MicroService is running on port ${envs.port}`);
+  logger.log(`📡 Connected to NATS servers: ${envs.natsServers}`);
 }
 bootstrap();
